@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerSlingshot : MonoBehaviour
 {
+    public CameraPositionController cameraMove;
+
     [Range (0.0f, 10.0f)]
     public float power = 10f;
 
@@ -108,6 +110,14 @@ public class PlayerSlingshot : MonoBehaviour
             rb.AddForce(clampedForce, ForceMode2D.Impulse);
             startedDragging = false;
             animator.SetBool("IsCrouching", false);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.gameObject.tag == "MainCamera")
+        {
+            cameraMove.moveCameraDown = true;
         }
     }
 
