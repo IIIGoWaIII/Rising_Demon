@@ -11,6 +11,14 @@ public class PlayerSlingshot : MonoBehaviour
     public float maxDrag = 5f;
 
     private bool isDraggable = false;
+    public bool IsDraggable
+    {
+        get
+        {
+            return isDraggable;
+        }
+    }
+
     private bool startedDragging = false;
     private Rigidbody2D rb;
     private LineRenderer lr;
