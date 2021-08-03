@@ -34,9 +34,23 @@ public class CameraPositionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!moveCameraDown)
+        if(moveCameraDown)
         {
-            if(animator.GetBool("IsGrounded") && animator.GetFloat("Velocity") == 0 && !moveCamera)
+            Debug.DrawLine(player.transform.position, player.transform.position + Vector3.down, Color.red);
+            float t = (Time.time - startTime) / cameraFlyDurationDown;
+            float cameraPosYNew = player.transform.position.y + cameraDistance;
+            float cameraPosYActual = Mathf.SmoothStep(cameraPosYOld, cameraPosYNew, t);
+
+            transform.position = new Vector3(transform.position.x, cameraPosYActual, transform.position.z);
+
+            if(animator.GetBool("IsGrounded") && animator.GetFloat("Velocity") == 0)
+            {
+                moveCameraDown = false;
+            }
+
+        }else
+        {
+            if(animator.GetBool("IsGrounded") && animator.GetFloat("Velocity") < 0.01 && !moveCamera)
             {
                 moveCamera = true;
                 startTime = Time.time;
@@ -50,6 +64,7 @@ public class CameraPositionController : MonoBehaviour
 
                 if(cameraPosYOld < cameraPosYNew)
                 {
+                    Debug.DrawLine(player.transform.position, player.transform.position + Vector3.up, Color.green);
                     transform.position = new Vector3(transform.position.x, cameraPosYActual, transform.position.z);
                 }
 
@@ -65,20 +80,6 @@ public class CameraPositionController : MonoBehaviour
                     moveCamera = false;
                 }
             }
-
-        }else
-        {
-            float t = (Time.time - startTime) / cameraFlyDurationDown;
-            float cameraPosYNew = player.transform.position.y + cameraDistance;
-            float cameraPosYActual = Mathf.SmoothStep(cameraPosYOld, cameraPosYNew, t);
-
-            transform.position = new Vector3(transform.position.x, cameraPosYActual, transform.position.z);
-
-            if(animator.GetBool("IsGrounded") && animator.GetFloat("Velocity") == 0)
-            {
-                moveCameraDown = false;
-            }
         }
     }
-
 }
