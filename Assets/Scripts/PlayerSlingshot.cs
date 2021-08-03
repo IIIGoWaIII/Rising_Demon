@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerSlingshot : MonoBehaviour
 {
     public CameraPositionController cameraMove;
+    public Collider2D colliderJump;
+    public Collider2D colliderFall;
 
     [Range (0.0f, 10.0f)]
     public float power = 10f;
@@ -58,6 +60,17 @@ public class PlayerSlingshot : MonoBehaviour
             }
         }
         animator.SetFloat("Velocity", rb.velocity.magnitude);
+        animator.SetFloat("VelocityY", rb.velocity.y);
+
+        if(rb.velocity.y > 0.1)
+        {
+            colliderJump.enabled = true;
+            colliderFall.enabled = false;
+        }else
+        {
+            colliderJump.enabled = false;
+            colliderFall.enabled = true;
+        }
     }
 
     private void DragStart()
