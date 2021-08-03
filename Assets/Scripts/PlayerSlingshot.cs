@@ -71,7 +71,7 @@ public class PlayerSlingshot : MonoBehaviour
     }
 
     private void Dragging()
-    {
+    {     
         if(startedDragging)
         {
             Vector3 draggingPos = Camera.main.ScreenToWorldPoint(touch.position);

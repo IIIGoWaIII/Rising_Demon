@@ -7,11 +7,12 @@ public class CameraPositionController : MonoBehaviour
     public Collider2D cameraDownTrigger;
 
     public float cameraDistance = 5f;
-    public float cameraFlyDuration = 1f;
+    public float cameraFlyDurationUp = 1f;
+    public float cameraFlyDurationDown = 0.1f;
 
     [HideInInspector]
     public bool moveCameraDown = false;
-
+    
     private bool moveCamera = false;
 
     private float startTime;
@@ -43,7 +44,7 @@ public class CameraPositionController : MonoBehaviour
             
             if(moveCamera)
             {
-                float t = (Time.time - startTime) / cameraFlyDuration;
+                float t = (Time.time - startTime) / cameraFlyDurationUp;
                 float cameraPosYNew = player.transform.position.y + cameraDistance;
                 float cameraPosYActual = Mathf.SmoothStep(cameraPosYOld, cameraPosYNew, t);
 
@@ -67,9 +68,9 @@ public class CameraPositionController : MonoBehaviour
 
         }else
         {
-            float t = (Time.time - startTime) / cameraFlyDuration;
+            float t = (Time.time - startTime) / cameraFlyDurationDown;
             float cameraPosYNew = player.transform.position.y + cameraDistance;
-            float cameraPosYActual = Mathf.SmoothStep(cameraPosYOld, cameraPosYNew, t/0.75f);
+            float cameraPosYActual = Mathf.SmoothStep(cameraPosYOld, cameraPosYNew, t);
 
             transform.position = new Vector3(transform.position.x, cameraPosYActual, transform.position.z);
 
