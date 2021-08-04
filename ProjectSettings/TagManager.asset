@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - WallOrSlope
+  - Slope
+  - Wall
+  - Theme Changer
   layers:
   - Default
   - TransparentFX
