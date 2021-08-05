@@ -30,6 +30,13 @@ public class PlayerSlingshot : MonoBehaviour
     private Rigidbody2D rb;
     private LineRenderer lr;
     private Animator animator;
+    public Animator Animator
+    {
+        get
+        {
+            return animator;
+        }
+    }
     private Vector3 dragStartPos;
     private Touch touch;
     private AudioSource jumpSound;

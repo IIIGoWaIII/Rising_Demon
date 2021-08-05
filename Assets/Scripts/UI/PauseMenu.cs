@@ -10,16 +10,32 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseButton;
     public PlayerSlingshot player;
 
+    private GameObject firstActiveGameObject;
+
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape) && GameIsPaused)
-        {
-            Resume();
-        }
+        // if (Input.GetKey(KeyCode.Escape) && GameIsPaused)
+        // {
+        //     if(pauseMenuUI.activeSelf)
+        //     {  
+        //         Resume(pauseMenuUI);
+        //     }else
+        //     {
+        //          for (int i = 0; i < gameObject.transform.childCount; i++)
+        //         {
+        //             if(gameObject.transform.GetChild(i).gameObject.activeSelf == true)
+        //             {
+        //                     firstActiveGameObject = gameObject.transform.GetChild(1).gameObject;
+        //             }
+        //         }
+        //         Back(firstActiveGameObject);
+        //     }
+        // }
     }
 
     public void Pause()
     {
+        player.Animator.SetBool("IsCrouching", false);
         player.enabled = false;
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
@@ -27,12 +43,24 @@ public class PauseMenu : MonoBehaviour
         pauseButton.SetActive(false);
     }
 
-    public void Resume()
+    public void Resume(GameObject thisGO)
     {
+        thisGO.SetActive(false);
         player.enabled = true;
-        pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
         pauseButton.SetActive(true);
+    }
+
+    public void Back(GameObject thisGO)
+    {
+        thisGO.SetActive(false);
+        pauseMenuUI.SetActive(true);
+    }
+
+    public void Open(GameObject thisGO)
+    {
+        pauseMenuUI.SetActive(false);
+        thisGO.SetActive(true);
     }
 }
