@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -12,27 +13,6 @@ public class PauseMenu : MonoBehaviour
 
     private GameObject firstActiveGameObject;
 
-    void Update()
-    {
-        // if (Input.GetKey(KeyCode.Escape) && GameIsPaused)
-        // {
-        //     if(pauseMenuUI.activeSelf)
-        //     {  
-        //         Resume(pauseMenuUI);
-        //     }else
-        //     {
-        //          for (int i = 0; i < gameObject.transform.childCount; i++)
-        //         {
-        //             if(gameObject.transform.GetChild(i).gameObject.activeSelf == true)
-        //             {
-        //                     firstActiveGameObject = gameObject.transform.GetChild(1).gameObject;
-        //             }
-        //         }
-        //         Back(firstActiveGameObject);
-        //     }
-        // }
-    }
-
     public void Pause()
     {
         player.Animator.SetBool("IsCrouching", false);
@@ -41,7 +21,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
         pauseButton.SetActive(false);
-        Stats.stopTimer = true;
+        LiveTimer.stopTimer = true;
     }
 
     public void Resume(GameObject thisGO)
@@ -51,7 +31,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         pauseButton.SetActive(true);
-        Stats.stopTimer = false;
+        LiveTimer.stopTimer = false;
     }
 
     public void Back(GameObject thisGO)
@@ -64,5 +44,17 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         thisGO.SetActive(true);
+    }
+
+    public void RestartRun()
+    {
+        Scene scene = SceneManager.GetActiveScene(); 
+        SceneManager.LoadScene(scene.name);
+        LiveTimer.timer = 0;
+        LiveTimer.startTime = 0;
+        LiveTimer.timerTicking = false;
+        LiveTimer.stopTimer = false;
+        Stats.fallsCount = 0;
+        Stats.jumpsConut = 0;
     }
 }

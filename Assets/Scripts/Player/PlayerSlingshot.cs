@@ -52,7 +52,6 @@ public class PlayerSlingshot : MonoBehaviour
 
     private void Update() 
     {
-
         if (Input.touchCount > 0 && isDraggable)
         {
             touch = Input.GetTouch(0);
@@ -161,10 +160,10 @@ public class PlayerSlingshot : MonoBehaviour
                 jumpDust.Play();
             }
 
-            if(!Stats.timerTicking)
+            if(!LiveTimer.timerTicking)
             {
-                Stats.timerTicking = true;
-                Stats.startTime = Time.time;
+                LiveTimer.timerTicking = true;
+                LiveTimer.startTime = Time.time;
             }
         }
     }
