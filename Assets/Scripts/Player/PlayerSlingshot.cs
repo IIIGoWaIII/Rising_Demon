@@ -96,6 +96,7 @@ public class PlayerSlingshot : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("Gigafall");
             gigafallDust.Play();
             gigajumpDust = false;
+            Stats.fallsCount++;
         }
     }
 
@@ -153,9 +154,17 @@ public class PlayerSlingshot : MonoBehaviour
             startedDragging = false;
             animator.SetBool("IsCrouching", false);
 
+            Stats.jumpsConut++;
+
             if(clampedForce.magnitude > 10)
             {
                 jumpDust.Play();
+            }
+
+            if(!Stats.timerTicking)
+            {
+                Stats.timerTicking = true;
+                Stats.startTime = Time.time;
             }
         }
     }
