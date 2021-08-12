@@ -873,7 +873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.81960785}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -910,6 +910,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8dc7fea82bd3f14ba4aadacb55b450b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  liveTimerEnabled: {fileID: 1766168828}
+  musicVolume: {fileID: 1766582316}
+  sfxVolume: {fileID: 2080805187}
+  musicAudioMixer: {fileID: 24100000, guid: 2ad922fb3a78d014b8d313145979e378, type: 2}
+  sfxAudioMixer: {fileID: 24100000, guid: 8fd8c5cecaa04174b905c499df4ecf06, type: 2}
 --- !u!1 &126160294
 GameObject:
   m_ObjectHideFlags: 0
@@ -8010,7 +8015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.81960785}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10065,7 +10070,6 @@ GameObject:
   m_Component:
   - component: {fileID: 962978016}
   - component: {fileID: 962978015}
-  - component: {fileID: 962978017}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10122,18 +10126,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &962978017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962978014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c19bcfee6cd3c7b4db87890df0211629, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1000014971
 GameObject:
   m_ObjectHideFlags: 0
@@ -17071,7 +17063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.81960785}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -17694,7 +17686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.81960785}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -18626,6 +18618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dbea81d27b0cbc49b27bfb9d71661cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingsMenu: {fileID: 112669079}
   cameraMove: {fileID: 519420034}
   colliderJump: {fileID: 1729528904}
   colliderFall: {fileID: 1729528903}
@@ -19142,7 +19135,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 112669079}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
-        m_MethodName: setLiveTimer
+        m_MethodName: SetLiveTimer
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

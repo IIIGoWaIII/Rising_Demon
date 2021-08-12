@@ -10,6 +10,8 @@ public class CameraPositionController : MonoBehaviour
     public float cameraFlyDurationUp = 1f;
     public float cameraFlyDurationDown = 0.1f;
 
+    public static bool savePosition = false;
+
     [HideInInspector]
     public bool moveCameraDown = false;
     
@@ -54,6 +56,10 @@ public class CameraPositionController : MonoBehaviour
             {
                 moveCamera = true;
                 startTime = Time.time;
+                SaveData.Current.SetPlayerPosition(player.transform.position, player.transform.localRotation.y);
+                SaveData.Current.SetTimer(LiveTimer.timer);
+                SerializationManager.Save(SaveData.Current);
+                savePosition = false;
             }
             
             if(moveCamera)

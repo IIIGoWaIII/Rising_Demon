@@ -5,7 +5,7 @@ using TMPro;
 
 public class Stats : MonoBehaviour
 {
-    public static int jumpsConut = 0;
+    public static int jumpsCount = 0;
     public static int fallsCount = 0;
 
     public TextMeshProUGUI liveTimer;
@@ -16,13 +16,16 @@ public class Stats : MonoBehaviour
     void Start()
     {
         textMesh = gameObject.GetComponent<TextMeshProUGUI>(); 
+        SaveData.Current.OnLoadGame();
+        jumpsCount = SaveData.Current.GetJumpsCount();
+        fallsCount = SaveData.Current.GetFallsCount();
     }
 
     // Update is called once per frame
     void Update()
     {
         textMesh.text = "Time: " + liveTimer.text + 
-                        "\nJumps: " + jumpsConut.ToString() +
+                        "\nJumps: " + jumpsCount.ToString() +
                         "\nFalls: " + fallsCount.ToString();
     }
 }

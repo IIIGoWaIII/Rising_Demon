@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerSlingshot : MonoBehaviour
 {
+    public SettingsMenu settingsMenu;
     public CameraPositionController cameraMove;
     public Collider2D colliderJump;
     public Collider2D colliderFall;
@@ -48,6 +49,10 @@ public class PlayerSlingshot : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         lr.positionCount = 0;
         jumpSound = gameObject.GetComponent<AudioSource>();
+
+        SaveData.Current.OnLoadGame();
+        SaveData.Current.GetPlayerPosition(gameObject);
+        settingsMenu.LoadSettings();
     }
 
     private void Update() 
@@ -96,6 +101,8 @@ public class PlayerSlingshot : MonoBehaviour
             gigafallDust.Play();
             gigajumpDust = false;
             Stats.fallsCount++;
+            SaveData.Current.SetFallsCount(Stats.fallsCount);
+            SerializationManager.Save(SaveData.Current);
         }
     }
 
@@ -126,10 +133,10 @@ public class PlayerSlingshot : MonoBehaviour
 
             if(dragStartPos.x > draggingPos.x)
             {
-                transform.localRotation = Quaternion.Euler(0f,180f,0f);
+                transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
             } else
             {
-                transform.localRotation = Quaternion.Euler(0f,0f,0f);
+                transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             }
 
         }
@@ -153,7 +160,9 @@ public class PlayerSlingshot : MonoBehaviour
             startedDragging = false;
             animator.SetBool("IsCrouching", false);
 
-            Stats.jumpsConut++;
+            Stats.jumpsCount++;
+            SaveData.Current.SetJumpsCount(Stats.jumpsCount);
+            SerializationManager.Save(SaveData.Current);
 
             if(clampedForce.magnitude > 10)
             {
@@ -166,6 +175,7 @@ public class PlayerSlingshot : MonoBehaviour
                 LiveTimer.startTime = Time.time;
             }
         }
+        CameraPositionController.savePosition = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other) 

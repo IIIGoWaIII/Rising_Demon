@@ -48,13 +48,14 @@ public class PauseMenu : MonoBehaviour
 
     public void RestartRun()
     {
-        Scene scene = SceneManager.GetActiveScene(); 
-        SceneManager.LoadScene(scene.name);
+        player.transform.position = new Vector3(1.475f, -4.681f, 0f);
+        player.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
         LiveTimer.timer = 0;
         LiveTimer.startTime = 0;
+        LiveTimer.savedTime = 0;
         LiveTimer.timerTicking = false;
         LiveTimer.stopTimer = false;
         Stats.fallsCount = 0;
-        Stats.jumpsConut = 0;
+        Stats.jumpsCount = 0;
     }
 }
