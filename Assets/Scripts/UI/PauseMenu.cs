@@ -21,7 +21,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
         pauseButton.SetActive(false);
-        LiveTimer.stopTimer = true;
     }
 
     public void Resume(GameObject thisGO)
@@ -31,7 +30,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         pauseButton.SetActive(true);
-        LiveTimer.stopTimer = false;
     }
 
     public void Back(GameObject thisGO)
@@ -54,7 +52,6 @@ public class PauseMenu : MonoBehaviour
         LiveTimer.startTime = 0;
         LiveTimer.savedTime = 0;
         LiveTimer.timerTicking = false;
-        LiveTimer.stopTimer = false;
         Stats.fallsCount = 0;
         Stats.jumpsCount = 0;
     }

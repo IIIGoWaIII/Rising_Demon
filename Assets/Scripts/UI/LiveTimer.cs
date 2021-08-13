@@ -7,11 +7,11 @@ public class LiveTimer : MonoBehaviour
 {
     public static TextMeshProUGUI timerText;
 
+    public static string text;
     public static float timer = 0;
     public static float startTime = 0;
     public static float savedTime = 0;
     public static bool timerTicking = false;
-    public static bool stopTimer = false;
 
     /// Start is called on the frame when a script is enabled just before
     void Start()
@@ -42,16 +42,17 @@ public class LiveTimer : MonoBehaviour
         }else
         {
             timerText.enabled = true;
-
-            if(startTime != 0)
-            {
-                timer = Time.time - startTime + savedTime;
-                hours = ((int) timer/3600%24).ToString("00");
-                minutes = ((int) timer / 60).ToString("00");
-                seconds = Mathf.Floor((timer % 60)).ToString("00");
-            }
         }
 
-        timerText.text = hours + ":" + minutes + ":" + seconds;
+        if(startTime != 0)
+        {
+            timer = Time.time - startTime + savedTime;
+            hours = ((int) timer/3600%24).ToString("00");
+            minutes = ((int) timer / 60).ToString("00");
+            seconds = Mathf.Floor((timer % 60)).ToString("00");
+        }
+
+        text = hours + ":" + minutes + ":" + seconds;
+        timerText.text = text;
     }
 }
