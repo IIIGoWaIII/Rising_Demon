@@ -1,0 +1,17 @@
+Adobe After Effects v17.0.4 Windows 64 render log for project “animated_lava_falls.aep”
+
+Rendering started on 13.09.2021 at 10:08:47
+
+  13.09.2021 10:08:47: Starting composition “Layer 20”.
+
+  Output To: D:\files\Unity_projekty\Rising_Devil\visuals_raw\bgs\hell\lavafall_01\Layer 20\Layer 20_[#####].png    13.09.2021 10:08:48: Finished composition “Layer 20”.
+
+
+  13.09.2021 10:08:48: Starting composition “Layer 16”.
+
+  Output To: D:\files\Unity_projekty\Rising_Devil\visuals_raw\bgs\hell\lavafall_02\Layer 16\Layer 16_[#####].png    13.09.2021 10:08:48: Finished composition “Layer 16”.
+
+
+  Total Time Elapsed: 1 Seconds
+Log closed on 13.09.2021 at 10:08:48
+
