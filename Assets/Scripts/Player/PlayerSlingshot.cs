@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class PlayerSlingshot : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerSlingshot : MonoBehaviour
     public Collider2D colliderFall;
     public ParticleSystem jumpDust;
     public ParticleSystem gigafallDust;
+    public SpriteShapeController jumpPower;
 
     [Range (0.0f, 10.0f)]
     public float power = 10f;
@@ -26,6 +28,7 @@ public class PlayerSlingshot : MonoBehaviour
         }
     }
 
+    private Vector3 draggingPos;
     private bool gigajumpDust = false;
     private bool startedDragging = false;
     private Rigidbody2D rb;
@@ -53,6 +56,7 @@ public class PlayerSlingshot : MonoBehaviour
         SaveData.Current.OnLoadGame();
         SaveData.Current.GetPlayerPosition(gameObject);
         settingsMenu.LoadSettings();
+        jumpPower.transform.localScale = new Vector3(0f,0f,0f);
     }
 
     private void Update() 
@@ -121,7 +125,7 @@ public class PlayerSlingshot : MonoBehaviour
     {     
         if(startedDragging)
         {
-            Vector3 draggingPos = Camera.main.ScreenToWorldPoint(touch.position);
+            draggingPos = Camera.main.ScreenToWorldPoint(touch.position);
             draggingPos.z = 0f;
             lr.positionCount = 2;
 
@@ -130,6 +134,12 @@ public class PlayerSlingshot : MonoBehaviour
             draggingPos = dragStartPos + (dir.normalized * dist);
 
             lr.SetPosition(1, draggingPos);
+            
+            jumpPower.transform.localScale = new Vector3(1f,1f,1f);
+            jumpPower.spline.SetPosition(1, dragStartPos);
+            jumpPower.spline.SetPosition(0, draggingPos);
+
+            Debug.DrawLine(jumpPower.spline.GetPosition(0), jumpPower.spline.GetPosition(1), Color.blue);
 
             if(dragStartPos.x > draggingPos.x)
             {
@@ -138,13 +148,12 @@ public class PlayerSlingshot : MonoBehaviour
             {
                 transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             }
-
         }
     }
 
     private void DragRelease()
     {
-        if(startedDragging)
+        if(startedDragging && dragStartPos.y > draggingPos.y)
         {
             lr.positionCount = 0;
 
@@ -174,8 +183,12 @@ public class PlayerSlingshot : MonoBehaviour
                 LiveTimer.timerTicking = true;
                 LiveTimer.startTime = Time.time;
             }
+        } else
+        {
+           animator.SetBool("IsCrouching", false); 
         }
         CameraPositionController.savePosition = true;
+        jumpPower.transform.localScale = new Vector3(0f,0f,0f);
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -211,4 +224,5 @@ public class PlayerSlingshot : MonoBehaviour
             animator.SetBool("IsGrounded", false);
         }
     }
+
 }
