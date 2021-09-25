@@ -46,7 +46,7 @@ public class PauseMenu : MonoBehaviour
 
     public void RestartRun()
     {
-        player.transform.position = new Vector3(1.475f, -4.681f, 0f);
+        player.transform.position = new Vector3(1.18f, -4.681f, 0f);
         player.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
         LiveTimer.timer = 0;
         LiveTimer.startTime = 0;

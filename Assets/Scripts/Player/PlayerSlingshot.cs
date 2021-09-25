@@ -83,15 +83,15 @@ public class PlayerSlingshot : MonoBehaviour
         animator.SetFloat("Velocity", rb.velocity.magnitude);
         animator.SetFloat("VelocityY", rb.velocity.y);
 
-        if(rb.velocity.y > 0.1)
-        {
-            colliderJump.enabled = true;
-            colliderFall.enabled = false;
-        }else
-        {
-            colliderJump.enabled = false;
-            colliderFall.enabled = true;
-        }
+        // if(rb.velocity.y > 0.1)
+        // {
+        //     colliderJump.enabled = true;
+        //     colliderFall.enabled = false;
+        // }else
+        // {
+        //     colliderJump.enabled = false;
+        //     colliderFall.enabled = true;
+        // }
 
         if(rb.velocity.y < -20)
         {
