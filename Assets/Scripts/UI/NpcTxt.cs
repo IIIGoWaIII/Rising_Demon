@@ -6,6 +6,7 @@ using TMPro;
 public class NpcTxt : MonoBehaviour
 {
 
+    public int indexNPC = 0;
     public string[] texts;
 
     private BoxCollider2D boxCollider2D;
@@ -25,12 +26,14 @@ public class NpcTxt : MonoBehaviour
         boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
         txt = gameObject.GetComponent<TextMeshPro>();
         txt.enabled = false;
+        SaveData.Current.OnLoadGame();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (sayLine && (firstInteraction || timer > 30f))
+        if (sayLine)
         {
             SayLine();
         }
@@ -53,15 +56,11 @@ public class NpcTxt : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            if(!sayLine)
+            if(!sayLine && collisionCount < texts.Length && (firstInteraction || timer > 30f))
             {
                 collisionCount++;
                 sayLine = true;
                 counter = 0;
-                if (collisionCount >= texts.Length)
-                {
-                    collisionCount = 0;
-                }
             }
         }
     }
@@ -96,6 +95,7 @@ public class NpcTxt : MonoBehaviour
                 timer = 0f;
             }
         }
+        // save collision count fcking somehow
     }
 }
 

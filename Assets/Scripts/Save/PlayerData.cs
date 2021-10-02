@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData 
 {
-    // Vector3(1.475f, -4.681f, 0f);
     public float positionX = 1.475f;
     public float positionY = -4.681f;
     public float positionZ = 0f;

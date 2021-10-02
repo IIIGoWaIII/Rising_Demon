@@ -8684,7 +8684,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.699166
+  orthographic size: 2.4661868
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -9297,6 +9297,7 @@ MonoBehaviour:
   - Don't even try anymore.
   - You're not gonna make it anyway.
   - Just sit with me here.
+  - 
 --- !u!114 &588410175
 MonoBehaviour:
   m_ObjectHideFlags: 0
