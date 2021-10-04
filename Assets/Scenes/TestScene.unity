@@ -9290,6 +9290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5594a545766a740a73be0dee557893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indexNPC: 0
   texts:
   - Ohh, so you are going for that artifact... don't get your hopes up.
   - You're already back?
@@ -20600,7 +20601,7 @@ MonoBehaviour:
   settingsMenu: {fileID: 112669079}
   cameraMove: {fileID: 519420034}
   colliderJump: {fileID: 1729528904}
-  colliderFall: {fileID: 1729528903}
+  colliderFall: {fileID: 1729528904}
   jumpDust: {fileID: 127625723}
   gigafallDust: {fileID: 1085222572}
   jumpPower: {fileID: 984462955}
@@ -20762,7 +20763,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729528893}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: bcdaad60eaaed044ab0b40b7d712c05a, type: 2}
   m_IsTrigger: 0
@@ -20782,7 +20783,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0.16538912, y: 0.316051}
       - {x: -0.20195699, y: 0.317905}
-      - {x: -0.20204991, y: -0.381876}
+      - {x: -0.2561124, y: 0.31823206}
       - {x: -0.3579548, y: -0.62083673}
       - {x: -0.281703, y: -0.619805}
       - {x: -0.02432561, y: -0.6346965}
@@ -20790,7 +20791,7 @@ PolygonCollider2D:
       - {x: -0.01911807, y: -0.6344309}
       - {x: 0.23171538, y: -0.6196958}
       - {x: 0.32558447, y: -0.6196138}
-      - {x: 0.17068815, y: -0.40028715}
+      - {x: 0.17609441, y: 0.27549314}
 --- !u!61 &1729528904
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20798,13 +20799,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729528893}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: bcdaad60eaaed044ab0b40b7d712c05a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.12}
+  m_Offset: {x: 0, y: -0.27915144}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -20815,7 +20816,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4168301, y: 0.7257132}
+  m_Size: {x: 0.5625909, y: 0.63935184}
   m_EdgeRadius: 0
 --- !u!1 &1730078955
 GameObject:

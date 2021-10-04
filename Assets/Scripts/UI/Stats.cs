@@ -14,9 +14,9 @@ public class Stats : MonoBehaviour
     void Start()
     {
         textMesh = gameObject.GetComponent<TextMeshProUGUI>(); 
-        SaveData.Current.OnLoadGame();
-        jumpsCount = SaveData.Current.GetJumpsCount();
-        fallsCount = SaveData.Current.GetFallsCount();
+        // SaveData.Current.OnLoadGame();
+        // jumpsCount = SaveData.Current.GetJumpsCount();
+        // fallsCount = SaveData.Current.GetFallsCount();
     }
 
     // Update is called once per frame

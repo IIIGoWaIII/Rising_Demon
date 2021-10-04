@@ -27,7 +27,6 @@ public class NpcTxt : MonoBehaviour
         txt = gameObject.GetComponent<TextMeshPro>();
         txt.enabled = false;
         SaveData.Current.OnLoadGame();
-        
     }
 
     // Update is called once per frame
