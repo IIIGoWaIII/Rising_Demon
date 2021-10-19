@@ -11,6 +11,9 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseButton;
     public PlayerSlingshot player;
 
+    [Header("NPCS")]
+    public NpcTxt npcText1;
+
     private GameObject firstActiveGameObject;
 
     public void Pause()
@@ -54,5 +57,8 @@ public class PauseMenu : MonoBehaviour
         LiveTimer.timerTicking = false;
         Stats.fallsCount = 0;
         Stats.jumpsCount = 0;
+
+        // NPC resets
+        // npcText1.collisionCountReset();
     }
 }

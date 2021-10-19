@@ -7,6 +7,7 @@ public class NpcTxt : MonoBehaviour
 {
 
     public int indexNPC = 0;
+    public NpcTxtExitCheck exitCheck;
     public string[] texts;
 
     private BoxCollider2D boxCollider2D;
@@ -14,7 +15,6 @@ public class NpcTxt : MonoBehaviour
 
     private int collisionCount = -1;
     private float time = 0f;
-    private float timer = 0f;
     private float timeBigegr = 0f;
     private int counter = 0;
     private bool sayLine = false;
@@ -27,6 +27,7 @@ public class NpcTxt : MonoBehaviour
         txt = gameObject.GetComponent<TextMeshPro>();
         txt.enabled = false;
         SaveData.Current.OnLoadGame();
+        
     }
 
     // Update is called once per frame
@@ -39,10 +40,7 @@ public class NpcTxt : MonoBehaviour
         else
         {
             txt.enabled = false;
-            timer = timer + 1f * Time.deltaTime;
         }
-
-            print(timer);
      
     }
 
@@ -55,11 +53,18 @@ public class NpcTxt : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            if(!sayLine && collisionCount < texts.Length && (firstInteraction || timer > 30f))
+            if((!sayLine && collisionCount < texts.Length && exitCheck.didExit) || firstInteraction)
             {
                 collisionCount++;
                 sayLine = true;
                 counter = 0;
+                firstInteraction = false;
+
+                // save collision count
+
+            } else if (collisionCount > texts.Length)
+            {
+                collisionCount = texts.Length;
             }
         }
     }
@@ -81,7 +86,7 @@ public class NpcTxt : MonoBehaviour
             counter++;
             time = 0f;
         }
-
+        
         if (totalVisibleCharacters == visibleCount)
         {  
             timeBigegr = timeBigegr + 1f * Time.deltaTime;
@@ -89,12 +94,15 @@ public class NpcTxt : MonoBehaviour
             if (timeBigegr >= 5f)
             {
                 sayLine = false;
-                firstInteraction = false;
                 timeBigegr = 0f;
-                timer = 0f;
+                exitCheck.didExit = false;
             }
-        }
-        // save collision count fcking somehow
+        } 
+    }
+
+    public void collisionCountReset()
+    {
+        collisionCount = 0;
     }
 }
 

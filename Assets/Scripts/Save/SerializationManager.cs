@@ -46,7 +46,7 @@ public class SerializationManager
         }
         catch
         {
-            Debug.LogErrorFormat("Failed to lead file at: " + path);
+            Debug.LogErrorFormat("Failed to load file at: " + path);
             file.Close();
             return null;
         }
