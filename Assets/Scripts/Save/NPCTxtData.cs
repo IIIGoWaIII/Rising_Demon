@@ -22,4 +22,13 @@ public class NPCTxtData : MonoBehaviour
         Debug.Log("loaded npc index: " + NPCIndex + " txt nr: " + NPCTxts[NPCIndex]);
         return NPCTxts[NPCIndex];
     }
+
+    public void ResetNPCTxts()
+    {
+        for(int i = 0; i < NPCTxts.Length; i++)
+        {
+            NPCTxts[i] = 0;
+            PlayerPrefs.Save();
+        }
+    }
 }

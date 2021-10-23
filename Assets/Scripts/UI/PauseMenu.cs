@@ -7,14 +7,12 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
 
+    public NPCTxtData nPCTxtData;
     public GameObject pauseMenuUI; 
     public GameObject pauseButton;
     public PlayerSlingshot player;
 
-    [Header("NPCS")]
-    public NpcTxt npcText1;
-
-    private GameObject firstActiveGameObject;
+    // private GameObject firstActiveGameObject;
 
     public void Pause()
     {
@@ -58,7 +56,12 @@ public class PauseMenu : MonoBehaviour
         Stats.fallsCount = 0;
         Stats.jumpsCount = 0;
 
-        // NPC resets
-        // npcText1.collisionCountReset();
+        nPCTxtData.ResetNPCTxts();
+
+        var NPCS = FindObjectsOfType<NpcTxt>();
+        for(int i = 0; i < NPCS.Length; i++)
+        {
+            NPCS[i].ResetNPC();
+        }
     }
 }

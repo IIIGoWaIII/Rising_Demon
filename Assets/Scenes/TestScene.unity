@@ -7277,7 +7277,7 @@ GameObject:
   - component: {fileID: 324802715}
   - component: {fileID: 324802719}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7382,10 +7382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eda0684589df4e54c88c10aac8db42b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nPCTxtData: {fileID: 962978017}
   pauseMenuUI: {fileID: 505739267}
   pauseButton: {fileID: 1289515775}
   player: {fileID: 1729528898}
-  npcText1: {fileID: 588410174}
 --- !u!1 &357125455
 GameObject:
   m_ObjectHideFlags: 0
@@ -8685,7 +8685,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.4661868
+  orthographic size: 8.699166
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

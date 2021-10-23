@@ -28,7 +28,6 @@ public class NpcTxt : MonoBehaviour
         boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
         txt = gameObject.GetComponent<TextMeshPro>();
         txt.enabled = false;
-        SaveData.Current.OnLoadGame();
         collisionCount = nPCTxtData.GetNPCTxt(indexNPC);
     }
 
@@ -63,11 +62,10 @@ public class NpcTxt : MonoBehaviour
                 firstInteraction = false;
 
                 nPCTxtData.SetNPCTxt(indexNPC, collisionCount);
-                SerializationManager.Save(SaveData.Current);
-
-            } else if (collisionCount > texts.Length)
+            }
+            if (collisionCount >= texts.Length)
             {
-                collisionCount = texts.Length;
+                collisionCount = texts.Length-1;
             }
         }
     }
@@ -103,9 +101,14 @@ public class NpcTxt : MonoBehaviour
         } 
     }
 
-    public void collisionCountReset()
+    public void ResetNPC()
     {
-        collisionCount = -1;
+        collisionCount = 0;
+        time = 0f;
+        timeBigegr = 0f;
+        counter = 0;
+        sayLine = false;
+        firstInteraction = true;
     }
 }
 
