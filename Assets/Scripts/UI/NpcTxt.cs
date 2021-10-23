@@ -10,10 +10,11 @@ public class NpcTxt : MonoBehaviour
     public NpcTxtExitCheck exitCheck;
     public string[] texts;
 
+    private NPCTxtData nPCTxtData;
     private BoxCollider2D boxCollider2D;
     private TextMeshPro txt;
 
-    private int collisionCount = -1;
+    private int collisionCount = 0;
     private float time = 0f;
     private float timeBigegr = 0f;
     private int counter = 0;
@@ -23,11 +24,12 @@ public class NpcTxt : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        nPCTxtData = Object.FindObjectOfType<NPCTxtData>();
         boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
         txt = gameObject.GetComponent<TextMeshPro>();
         txt.enabled = false;
         SaveData.Current.OnLoadGame();
-        
+        collisionCount = nPCTxtData.GetNPCTxt(indexNPC);
     }
 
     // Update is called once per frame
@@ -60,7 +62,8 @@ public class NpcTxt : MonoBehaviour
                 counter = 0;
                 firstInteraction = false;
 
-                // save collision count
+                nPCTxtData.SetNPCTxt(indexNPC, collisionCount);
+                SerializationManager.Save(SaveData.Current);
 
             } else if (collisionCount > texts.Length)
             {
@@ -102,7 +105,7 @@ public class NpcTxt : MonoBehaviour
 
     public void collisionCountReset()
     {
-        collisionCount = 0;
+        collisionCount = -1;
     }
 }
 

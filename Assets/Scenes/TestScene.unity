@@ -9295,6 +9295,7 @@ MonoBehaviour:
   indexNPC: 0
   exitCheck: {fileID: 1268105111}
   texts:
+  - 
   - Ohh, so you are going for that artifact... don't get your hopes up.
   - You're already back?
   - Ha ha ha hahaha ha haha...
@@ -11303,6 +11304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 962978016}
   - component: {fileID: 962978015}
+  - component: {fileID: 962978017}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11359,6 +11361,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &962978017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962978014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e25858c4ca8aa74eb412b95f9463a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &984462954
 GameObject:
   m_ObjectHideFlags: 0

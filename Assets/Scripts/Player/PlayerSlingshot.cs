@@ -56,7 +56,7 @@ public class PlayerSlingshot : MonoBehaviour
         SaveData.Current.OnLoadGame();
         SaveData.Current.GetPlayerPosition(gameObject);
         settingsMenu.LoadSettings();
-        Stats.jumpsCount =  SaveData.Current.GetJumpsCount();
+        Stats.jumpsCount = SaveData.Current.GetJumpsCount();
         Stats.fallsCount = SaveData.Current.GetFallsCount();
 
         jumpPower.transform.localScale = new Vector3(0f,0f,0f);
