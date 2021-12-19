@@ -12,14 +12,14 @@ public class NPCTxtData : MonoBehaviour
         NPCTxts[NPCIndex] = txtCount;
 
         PlayerPrefs.SetInt(NPCIndex.ToString() , NPCTxts[NPCIndex]);
-        Debug.Log("saved npc index: " + NPCIndex + " txt nr: " + NPCTxts[NPCIndex]);
+        // Debug.Log("saved npc index: " + NPCIndex + " txt nr: " + NPCTxts[NPCIndex]);
         PlayerPrefs.Save();
     }
 
     public int GetNPCTxt(int NPCIndex)
     {
         NPCTxts[NPCIndex] = PlayerPrefs.GetInt(NPCIndex.ToString() , 0);
-        Debug.Log("loaded npc index: " + NPCIndex + " txt nr: " + NPCTxts[NPCIndex]);
+        // Debug.Log("loaded npc index: " + NPCIndex + " txt nr: " + NPCTxts[NPCIndex]);
         return NPCTxts[NPCIndex];
     }
 
@@ -28,7 +28,7 @@ public class NPCTxtData : MonoBehaviour
         for(int i = 0; i < NPCTxts.Length; i++)
         {
             NPCTxts[i] = 0;
-            PlayerPrefs.Save();
         }
+    PlayerPrefs.Save();
     }
 }
