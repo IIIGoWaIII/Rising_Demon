@@ -5,6 +5,7 @@ using UnityEngine.U2D;
 
 public class PlayerSlingshot : MonoBehaviour
 {
+    // Public variables for settings, camera control, colliders, particle systems, and sprite shape controller
     public SettingsMenu settingsMenu;
     public CameraPositionController cameraMove;
     public Collider2D colliderJump;
@@ -13,20 +14,16 @@ public class PlayerSlingshot : MonoBehaviour
     public ParticleSystem gigafallDust;
     public SpriteShapeController jumpPower;
 
-    [Range (0.0f, 10.0f)]
+    // Configurable variables for power and maximum drag
+    [Range(0.0f, 10.0f)]
     public float power = 10f;
 
-    [Range (0.0f, 10.0f)]
+    [Range(0.0f, 10.0f)]
     public float maxDrag = 5f;
 
+    // Private variables to manage state and references
     private bool isDraggable = false;
-    public bool IsDraggable
-    {
-        get
-        {
-            return isDraggable;
-        }
-    }
+    public bool IsDraggable => isDraggable;
 
     private Vector3 draggingPos;
     private bool gigajumpDust = false;
@@ -34,75 +31,51 @@ public class PlayerSlingshot : MonoBehaviour
     private Rigidbody2D rb;
     private LineRenderer lr;
     private Animator animator;
-    public Animator Animator
-    {
-        get
-        {
-            return animator;
-        }
-    }
+    public Animator Animator => animator;
     private Vector3 dragStartPos;
-    private Touch touch;
     private AudioSource jumpSound;
 
+    // Initialization
     private void Start() 
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        lr = gameObject.GetComponent<LineRenderer>();
-        animator = gameObject.GetComponent<Animator>();
-        lr.positionCount = 0;
-        jumpSound = gameObject.GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody2D>();
+        lr = GetComponent<LineRenderer>();
+        animator = GetComponent<Animator>();
+        jumpSound = GetComponent<AudioSource>();
 
+        // Set initial line renderer position count to 0
+        lr.positionCount = 0;
+
+        // Load game data and settings
         SaveData.Current.OnLoadGame();
         SaveData.Current.GetPlayerPosition(gameObject);
         settingsMenu.LoadSettings();
         Stats.jumpsCount = SaveData.Current.GetJumpsCount();
         Stats.fallsCount = SaveData.Current.GetFallsCount();
 
-        jumpPower.transform.localScale = new Vector3(0f,0f,0f);
+        // Set initial scale of jump power indicator to 0
+        jumpPower.transform.localScale = new Vector3(0f, 0f, 0f);
     }
 
+    // Update method called once per frame
     private void Update() 
     {
-        if (Input.touchCount > 0 && isDraggable)
-        {
-            touch = Input.GetTouch(0);
+        HandleTouchInput();
+        // HandleMouseInput();
 
-            if (touch.phase == TouchPhase.Began)
-            {
-                DragStart();
-            }
-
-            if (touch.phase == TouchPhase.Moved)
-            {
-                Dragging();
-            }
-
-            if (touch.phase == TouchPhase.Ended)
-            {
-                DragRelease();
-            }
-        }
+        // Update animator parameters
         animator.SetFloat("Velocity", rb.velocity.magnitude);
         animator.SetFloat("VelocityY", rb.velocity.y);
 
-        // if(rb.velocity.y > 0.1)
-        // {
-        //     colliderJump.enabled = true;
-        //     colliderFall.enabled = false;
-        // }else
-        // {
-        //     colliderJump.enabled = false;
-        //     colliderFall.enabled = true;
-        // }
-
-        if(rb.velocity.y < -20)
+        // Check for gigafall condition
+        if (rb.velocity.y < -20)
         {
             animator.SetBool("Gigafall", true);
             gigajumpDust = true;
         }
-        
-        if(animator.GetBool("Gigafall") && animator.GetBool("IsGrounded") && gigajumpDust && rb.velocity.magnitude < 0.1f)
+
+        // Play gigafall effects when conditions are met
+        if (animator.GetBool("Gigafall") && animator.GetBool("IsGrounded") && gigajumpDust && rb.velocity.magnitude < 0.1f)
         {
             FindObjectOfType<AudioManager>().Play("Gigafall");
             gigafallDust.Play();
@@ -113,9 +86,54 @@ public class PlayerSlingshot : MonoBehaviour
         }
     }
 
-    private void DragStart()
+    // Handle touch input for drag operations
+    private void HandleTouchInput()
     {
-        dragStartPos = Camera.main.ScreenToWorldPoint(touch.position);
+        if (Input.touchCount > 0 && isDraggable)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    DragStart(touch.position);
+                    break;
+                case TouchPhase.Moved:
+                    Dragging(touch.position);
+                    break;
+                case TouchPhase.Ended:
+                    DragRelease(touch.position);
+                    break;
+            }
+        }
+    }
+
+    // Handle mouse input for drag operations
+    private void HandleMouseInput()
+    {
+        if (isDraggable)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                DragStart(Input.mousePosition);
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                Dragging(Input.mousePosition);
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                DragRelease(Input.mousePosition);
+            }
+        }
+    }
+
+    // Start drag operation
+    private void DragStart(Vector3 inputPosition)
+    {
+        dragStartPos = Camera.main.ScreenToWorldPoint(inputPosition);
         dragStartPos.z = 0f;
         lr.positionCount = 1; 
         lr.SetPosition(0, dragStartPos);
@@ -124,11 +142,12 @@ public class PlayerSlingshot : MonoBehaviour
         animator.SetBool("Gigafall", false);
     }
 
-    private void Dragging()
+    // Handle dragging operation
+    private void Dragging(Vector3 inputPosition)
     {     
-        if(startedDragging)
+        if (startedDragging)
         {
-            draggingPos = Camera.main.ScreenToWorldPoint(touch.position);
+            draggingPos = Camera.main.ScreenToWorldPoint(inputPosition);
             draggingPos.z = 0f;
             lr.positionCount = 2;
 
@@ -136,31 +155,29 @@ public class PlayerSlingshot : MonoBehaviour
             float dist = Mathf.Clamp(Vector3.Distance(dragStartPos, draggingPos), 0, maxDrag);
             draggingPos = dragStartPos + (dir.normalized * dist);
 
+            // Set LineRenderer positions
+            lr.SetPosition(0, dragStartPos);
             lr.SetPosition(1, draggingPos);
-            
-            jumpPower.transform.localScale = new Vector3(1f,1f,1f);
+
+            jumpPower.transform.localScale = new Vector3(1f, 1f, 1f);
             jumpPower.spline.SetPosition(1, dragStartPos);
             jumpPower.spline.SetPosition(0, draggingPos);
 
             Debug.DrawLine(jumpPower.spline.GetPosition(0), jumpPower.spline.GetPosition(1), Color.blue);
 
-            if(dragStartPos.x > draggingPos.x)
-            {
-                transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
-            } else
-            {
-                transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-            }
+            // Update player rotation based on dragging direction
+            transform.localRotation = dragStartPos.x > draggingPos.x ? Quaternion.Euler(0f, 180f, 0f) : Quaternion.Euler(0f, 0f, 0f);
         }
     }
 
-    private void DragRelease()
+    // Release drag operation
+    private void DragRelease(Vector3 inputPosition)
     {
-        if(startedDragging && dragStartPos.y > draggingPos.y)
+        if (startedDragging && dragStartPos.y > draggingPos.y)
         {
             lr.positionCount = 0;
 
-            Vector3 dragReleasePos = Camera.main.ScreenToWorldPoint(touch.position);
+            Vector3 dragReleasePos = Camera.main.ScreenToWorldPoint(inputPosition);
             dragReleasePos.z = 0f;
 
             Vector3 force = dragStartPos - dragReleasePos;
@@ -176,56 +193,60 @@ public class PlayerSlingshot : MonoBehaviour
             SaveData.Current.SetJumpsCount(Stats.jumpsCount);
             SerializationManager.Save(SaveData.Current);
 
-            if(clampedForce.magnitude > 10)
+            if (clampedForce.magnitude > 10)
             {
                 jumpDust.Play();
             }
 
-            if(!LiveTimer.timerTicking)
+            if (!LiveTimer.timerTicking)
             {
                 LiveTimer.timerTicking = true;
                 LiveTimer.startTime = Time.time;
             }
-        } else
+        }
+        else
         {
-           animator.SetBool("IsCrouching", false); 
+            animator.SetBool("IsCrouching", false);
         }
         CameraPositionController.savePosition = true;
-        jumpPower.transform.localScale = new Vector3(0f,0f,0f);
+        jumpPower.transform.localScale = new Vector3(0f, 0f, 0f);
     }
 
+    // Trigger event for camera movement
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.gameObject.tag == "MainCamera")
+        if (other.gameObject.CompareTag("MainCamera"))
         {
             cameraMove.moveCameraDown = true;
         }
     }
 
-    private void OnCollisionStay2D(Collision2D other) 
+    // Collision stay event to enable dragging
+    private void OnCollisionStay2D(Collision2D other)
     {
-        if(other.gameObject.tag == "Ground")
+        if (other.gameObject.CompareTag("Ground"))
         {
             isDraggable = true;
             animator.SetBool("IsGrounded", true);
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    // Collision enter event for wall collision sound
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.tag == "Wall")
+        if (other.gameObject.CompareTag("Wall"))
         {
             FindObjectOfType<AudioManager>().Play("Collision");
         }
     }
 
-    private void OnCollisionExit2D(Collision2D other) 
+    // Collision exit event to disable dragging
+    private void OnCollisionExit2D(Collision2D other)
     {
-        if(other.gameObject.tag == "Ground")
+        if (other.gameObject.CompareTag("Ground"))
         {
             isDraggable = false;
             animator.SetBool("IsGrounded", false);
         }
     }
-
 }
